@@ -10,7 +10,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 'T1',
+      value: '',
       teamList: 
     [{"Team" : "T1",
     "POCList" : [
@@ -116,7 +116,7 @@ class App extends Component {
         <form onSubmit={this.handleSubmit}>
          
           <div className = "col-md-3" style={{marginLeft: '25em', marginTop:'3em'}}>
-          <select value={this.state.value} onChange={this.handleChange}>
+          <select value={this.state.value} onChange={this.handleChange} placeholder="Select">
             <option value="T1">Team 1</option>
             <option value="T2">Team 2</option>
             <option value="T3">Team 3</option>
