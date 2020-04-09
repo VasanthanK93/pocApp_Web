@@ -11,9 +11,9 @@
     padding: 8px;
   }
   
-  #team tr:nth-child(even){background-color: #5f0ef5;}
+  #team tr:nth-child(even){background-color: #eeec69;}
   
-  #team tr:hover {background-color: rgb(2, 250, 196);}
+  #team tr:hover {background-color: rgb(161, 159, 155);}
   
   #team th {
     padding-top: 12px;
