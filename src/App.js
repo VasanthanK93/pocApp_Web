@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import Select from 'react-select';
+import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Teamtable from './Teamtable/Teamtable';
@@ -15,50 +16,7 @@ class App extends Component {
       value: '',
       dropValue : '',
       teamList: 
-    [{"Team" : "T1",
-    "POCList" : [
-      {
-        "id" : 1,
-        "desc" : "poc1",
-        "link" : "NA",
-        "status" : "Pending",
-        "remarks" : "NA"
-      }
-    ]
-    },
-    {"Team" : "T2",
-    "POCList" : [
-      {
-        "id" : 2,
-        "desc" : "poc2",
-        "link" : "NA",
-        "status" : "Pending",
-        "remarks" : "To be added"
-      }
-    ]
-    },
-    {"Team" : "T3",
-    "POCList" : [
-      {
-        "id" : 3,
-        "desc" : "poc3",
-        "link" : "NA",
-        "status" : "Pending",
-        "remarks" : "Done"
-      }
-    ]
-    },
-    {"Team" : "T4",
-    "POCList" : [
-      {
-        "id" : 4,
-        "desc" : "poc4",
-        "link" : "NA",
-        "status" : "Pending",
-        "remarks" : "NA"
-      }
-    ]
-    }],
+    [],
     propTeam : [],
     items: [],
     id : '',
@@ -75,20 +33,36 @@ class App extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
+  getData = async(url)=>{
+    let response = await axios.get(url)
+      let dataRes = response.data
+      return dataRes
+  }
+
+  componentDidMount = async()=>{
+    let url = "https://pocnodebby.herokuapp.com/poc/v1/getPocList"
+    let dataRes = await this.getData(url)
+    await this.setState({propTeam:dataRes,tableSee:true})
+
+  }
+
   addNewRow = () => {
      this.setState({showForm: true})
   }
 
-  handleChange(event) {
-    this.setState({value: event.target.value});
+  handleChange= async(event)=> {
+    // this.setState({value: event.target.value});
     var searchValue = event.target.value;
-    var updatedList = [];
-    updatedList = this.state.teamList.filter((item) => {
-      return Object.keys(item).some(key => item[key].toString().search(searchValue) !== -1);
-  });
-  this.setState({propTeam : updatedList[0].POCList})
+  //   var updatedList = [];
+  //   updatedList = this.state.teamList.filter((item) => {
+  //     return Object.keys(item).some(key => item[key].toString().search(searchValue) !== -1);
+  // });
+  // this.setState({propTeam : updatedList[0].POCList})
+  let url = "https://pocnodebby.herokuapp.com/poc/v1/getPocTeam/"+searchValue
+  let dataRes =await this.getData(url)
+  await this.setState({propTeam:dataRes,tableSee:true})
   this.setState({items : this.state.propTeam})
-  this.setState({tableSee: true})
+  // this.setState({tableSee: true})
   console.log("items : "+JSON.stringify(this.state.items))
 console.log("propTeam : "+JSON.stringify(this.state.propTeam));
   }
@@ -115,6 +89,7 @@ console.log("propTeam : "+JSON.stringify(this.state.propTeam));
     remarks : '',
     });
   };
+
 
   handleInputChange = (e) => {
     let input = e.target;
