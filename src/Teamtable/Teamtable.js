@@ -4,29 +4,19 @@ import Form from '../Form/Form';
 
 export default class Teamtable extends React.Component {
 
-    EmptyRowsView = () => {
-       console.log("indide....")
-      const message = "No data to show";
-      return (
-        <div style={{ textAlign: "center", padding: "100px" }} >   
-          <h3>{message}</h3>
-        </div>
-      );
-    };
-
 render(){
   let tableBody = null
   if(this.props.data.length === 1){ 
     
-    tableBody =this.props.data[0].POCList.map((team) => {
+    tableBody =this.props.data[0].pocList.map((team) => {
 
     return (
        <tr key={team.id}>
           <td>{team.id}</td>
-          <td>{team.POCDesc}</td>
-          <td>{team.WikiLink}</td>
+          <td>{team.pocDesc}</td>
+          <td>{team.wikiLink}</td>
           <td>{team.status}</td>
-          <td>{team.Remarks}</td>
+          <td>{team.remarks}</td>
           <td>
        <span className="table-remove"><button type="button" onClick={this.props.deleteRow}
            className="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
@@ -35,14 +25,14 @@ render(){
        else if(this.props.data.length > 1){
 
          tableBody = this.props.data.map((team) => {
-             return team.POCList.map((poc)=>{
+             return team.pocList.map((poc)=>{
                return (
                  <tr key={poc.id}>
                     <td>{poc.id}</td>
-                    <td>{poc.POCDesc}</td>
-                    <td>{poc.WikiLink}</td>
+                    <td>{poc.pocDesc}</td>
+                    <td>{poc.wikiLink}</td>
                     <td>{poc.status}</td>
-                    <td>{poc.Remarks}</td>
+                    <td>{poc.remarks}</td>
                     <td>
                  <span className="table-remove"><button type="button" onClick={this.props.deleteRow}
                      className="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>

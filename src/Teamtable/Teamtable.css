@@ -7,18 +7,18 @@
   }
   
   #team td, #team th {
-    border: 1px solid rgb(238, 11, 11);
+    border: 1px solid rgb(14, 13, 13);
     padding: 8px;
   }
   
-  #team tr:nth-child(even){background-color: #eeec69;}
+  /* #team tr:nth-child(even){background-color: #adada9;} */
   
-  #team tr:hover {background-color: rgb(161, 159, 155);}
+  #team tr:hover {background-color:  #adada9;}
   
   #team th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: center;
-    background-color: rgba(21, 5, 252, 0.959);
-    color: rgb(251, 255, 4);
+    background-color: #1d89fd;
+    color: rgb(237, 240, 74);
   }

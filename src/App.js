@@ -20,12 +20,14 @@ class App extends Component {
     propTeam : [],
     items: [],
     id : '',
-    desc : '',
-    link : '',
+    pocDesc : '',
+    wikiLink : '',
     statusFull:['Pending','In Progress','Completed','Hold'],
     status : [],
     remarks : '',
+    deleteStatus : false,
     tableSee : false,
+    addFormSee : false,
     showForm: false
     };
 
@@ -50,46 +52,45 @@ class App extends Component {
      this.setState({showForm: true})
   }
 
-  handleChange= async(event)=> {
-    // this.setState({value: event.target.value});
-    var searchValue = event.target.value;
-  //   var updatedList = [];
-  //   updatedList = this.state.teamList.filter((item) => {
-  //     return Object.keys(item).some(key => item[key].toString().search(searchValue) !== -1);
-  // });
-  // this.setState({propTeam : updatedList[0].POCList})
-  let url = "https://pocnodebby.herokuapp.com/poc/v1/getPocTeam/"+searchValue
-  let dataRes =await this.getData(url)
-  await this.setState({propTeam:dataRes,tableSee:true})
-  this.setState({items : this.state.propTeam})
-  // this.setState({tableSee: true})
-  console.log("items : "+JSON.stringify(this.state.items))
-console.log("propTeam : "+JSON.stringify(this.state.propTeam));
-  }
+  addData = (data)=>{  
+        let formData = {...data,team:this.state.value,deleteStatus: false}
+       let url = "https://pocnodebby.herokuapp.com/poc/v1/addPoc/"+this.state.value
+      return axios.post(url,formData)    
+}
 
-   handleFormSubmit = (e) => {
-    e.preventDefault();
 
-    let items = [...this.state.propTeam];
-console.log("items : "+items)
-console.log("propTeam : "+JSON.stringify(this.state.propTeam));
-    items.push({
-      id : this.state.id,
-    desc : this.state.desc,
-    link : this.state.link,
+handleFormSubmit = async e => {
+  e.preventDefault();
+  let items = {
+    id : this.state.id,
+    pocDesc : this.state.pocDesc,
+    wikiLink : this.state.wikiLink,
     status : this.state.status,
     remarks : this.state.remarks,
-    });
-    this.setState({
-      propTeam : items,
-      id : '',
-    desc : '',
-    link : '',
-    status : [],
-    remarks : '',
-    });
-  };
+  deleteStatus : false
+  }
+await this.addData(items)
+  let url = "https://pocnodebby.herokuapp.com/poc/v1/getPocTeam/"+this.state.value
+  let dataRes =await this.getData(url)
+  await this.setState({propTeam:dataRes,tableSee:true,addFormSee:true})
+  this.setState({
+    id : '',
+  pocDesc : '',
+  wikiLink : '',
+  status : [],
+  remarks : '',
+  deleteStatus : false
+  });
+};
 
+  handleChange= async(event)=> {
+     this.setState({value: event.target.value});
+    var searchValue = event.target.value;
+  let url = "https://pocnodebby.herokuapp.com/poc/v1/getPocTeam/"+searchValue
+  let dataRes =await this.getData(url)
+  await this.setState({propTeam:dataRes,tableSee:true,addFormSee:true,showForm:false})
+  this.setState({items : this.state.propTeam})
+  } 
 
   handleInputChange = (e) => {
     let input = e.target;
@@ -101,16 +102,14 @@ console.log("propTeam : "+JSON.stringify(this.state.propTeam));
     })
   };
 
-  deleteRow = (index) => {
-    var propTeam = [...this.state.propTeam];
-    propTeam.splice(index, 1);
-    this.setState({propTeam});
-    console.log("delete"+this.state.propTeam)
-  }
+  // deleteRow = (index) => {
+  //   var propTeam = [...this.state.propTeam];
+  //   propTeam.splice(index, 1);
+  //   this.setState({propTeam});
+  // }
 
 
   handleDropChange = (event) => {
-    console.log(event.target.value)
     this.setState({dropValue: event.target.value});
     var searchValue = event.target.value;
     var updatedList = [];
@@ -119,8 +118,6 @@ console.log("propTeam : "+JSON.stringify(this.state.propTeam));
   ))}
 
   this.setState({ status: updatedList})
-  console.log("+++++++"+JSON.stringify(updatedList))
-  console.log("+++++++"+JSON.stringify(this.state.status))
   };
 
 
@@ -145,17 +142,22 @@ console.log("propTeam : "+JSON.stringify(this.state.propTeam));
             <option value="T4">Team 4</option>
           </select>
         </div>
-      {this.state.tableSee ? (<Teamtable data ={this.state.propTeam} items={ this.state.items } deleteRow={this.deleteRow} />):null}  
-      {this.state.tableSee ?( <button style = {{marginTop:'3em'}} onClick={this.addNewRow} type="button" className="btn btn-primary text-center"> 
+
+        {this.state.addFormSee ?( <button style = {{marginTop:'3em'}} onClick={this.addNewRow} type="button" className="btn btn-primary text-center"> 
       <i className="fa fa-plus-circle" aria-hidden="true"></i>
       </button>):null}
       {this.state.showForm ? ( <Form handleFormSubmit={ this.handleFormSubmit } 
       handleInputChange={ this.handleInputChange } handleDropChange = {this.handleDropChange}
+      data ={this.state.propTeam}
       newId={ this.state.id }
-      newDesc={ this.state.desc } 
-      newLink={ this.state.link }
+      newDesc={ this.state.pocDesc } 
+      newLink={ this.state.wikiLink }
       newStatus={ this.state.status }
-      newRemark={ this.state.remarks }/>):null} 
+      newRemark={ this.state.remarks }
+      addData = {this.addData}/>):null} 
+
+      {this.state.tableSee ? (<Teamtable data ={this.state.propTeam} items={ this.state.items } deleteRow={this.deleteRow} />):null}  
+    
      </form>
       </div>
     </div>
