@@ -20,10 +20,12 @@ return(
 {/* <input type="text" name="status" placeholder="Status" value={this.props.newStatus} onChange={this.props.handleInputChange} /> */}
 <select style = {{width : '10em', height:'1.85em'}} value={this.props.newStatus} onChange={this.props.handleDropChange} placeholder="Status">
             <option value="">Select Status</option>
-              <option value="Pending">Pending</option>
-              <option value="In Progress">In progress</option>
+              <option value="New Idea">New Idea</option>
+              <option value="Shortlisted">Shortlisted</option>
+              <option value="InProgress">InProgress</option>
+              <option value="Blocked">Blocked</option>
               <option value="Completed">Completed</option>
-              <option value="Hold">Hold</option>
+              <option value="Demo Shown to Customer">Demo Shown to Customer</option>
       </select>
  <span>   </span>
 <input type="text" name="remarks" placeholder="Remarks" value={this.props.newRemark} onChange={this.props.handleInputChange} />

@@ -22,7 +22,7 @@ class App extends Component {
     id : '',
     pocDesc : '',
     wikiLink : '',
-    statusFull:['Pending','In Progress','Completed','Hold'],
+    statusFull:["New Idea","Shortlisted","InProgress","Blocked","Completed","Demo Shown to Customer"],
     status : [],
     remarks : '',
     deleteStatus : false,
