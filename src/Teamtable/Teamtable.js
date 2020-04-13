@@ -19,8 +19,8 @@ render(){
           <td>{team.status}</td>
           <td>{team.remarks}</td>
           <td>
-       <span className="table-remove"><button type="button" onClick={this.props.deleteRow}
-           className="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+          <span className="table-edit"><button type="button" onClick={this.props.editRow}
+                     className="btn-rounded btn-sm my-0">Edit</button></span>
      </td>
        </tr>)})}
        else if(this.props.data.length > 1){
@@ -37,8 +37,8 @@ render(){
                     <td>{poc.status}</td>
                     <td>{poc.remarks}</td>
                     <td>
-                 <span className="table-remove"><button type="button" onClick={this.props.deleteRow}
-                     className="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                 <span className="table-edit"><button type="button" onClick={this.props.editRow}
+                     className="btn-rounded btn-sm my-0">Edit</button></span>
                </td>
                  </tr>)
              })

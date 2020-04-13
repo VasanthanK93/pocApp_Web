@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import Select from 'react-select';
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Teamtable from './Teamtable/Teamtable';
 import Form from './Form/Form';
+import { Menu, Dropdown, Button, message, Tooltip } from 'antd';
+import { DownOutlined, UserOutlined } from '@ant-design/icons';
 
 
 class App extends Component {
@@ -125,15 +125,12 @@ await this.addData(items)
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Welcome to the Project</h1>
+          <h1 className="App-title">POC FORUM</h1>
         </header>
-        <p className="App-intro">
-         Please Select the Team...
-        </p>
         <div className = "container">
         <form>
-         
           <div className = "col-md-3" style={{marginLeft: '25em', marginTop:'3em'}}>
+            <span>Team List:    </span>
           <select value={this.state.value} onChange={this.handleChange} placeholder="Select">
           <option value="">Select</option>
             <option value="T1">Team 1</option>
@@ -143,6 +140,8 @@ await this.addData(items)
           </select>
         </div>
 
+      {this.state.tableSee ? (<Teamtable data ={this.state.propTeam} items={ this.state.items } showForm ={this.state.showForm} deleteRow={this.deleteRow} />):null}  
+    
         {this.state.addFormSee ?( <button style = {{marginTop:'3em'}} onClick={this.addNewRow} type="button" className="btn btn-primary text-center"> 
       <i className="fa fa-plus-circle" aria-hidden="true"></i>
       </button>):null}
@@ -156,8 +155,6 @@ await this.addData(items)
       newRemark={ this.state.remarks }
       addData = {this.addData}/>):null} 
 
-      {this.state.tableSee ? (<Teamtable data ={this.state.propTeam} items={ this.state.items } deleteRow={this.deleteRow} />):null}  
-    
      </form>
       </div>
     </div>
