@@ -4,8 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Teamtable from './Teamtable/Teamtable';
 import Form from './Form/Form';
-import { Menu, Dropdown, Button, message, Tooltip } from 'antd';
-import { DownOutlined, UserOutlined } from '@ant-design/icons';
 
 
 class App extends Component {
@@ -139,7 +137,6 @@ await this.addData(items)
             <option value="T4">Team 4</option>
           </select>
         </div>
-
       {this.state.tableSee ? (<Teamtable data ={this.state.propTeam} items={ this.state.items } showForm ={this.state.showForm} deleteRow={this.deleteRow} />):null}  
     
         {this.state.addFormSee ?( <button style = {{marginTop:'3em'}} onClick={this.addNewRow} type="button" className="btn btn-primary text-center"> 
